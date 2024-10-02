@@ -1,5 +1,5 @@
-% 此文件用于记录eie589 
-%使用dj算法
+% 此文件用于记录eie589 assignment1
+% 使用dj算法
 
 % 生成节点坐标矩阵，这里是20x20的网格
 [x, y] = meshgrid(0:19, 0:19);
@@ -60,18 +60,19 @@ end
 figure;
 hold on;
 num_remaining_points = size(remaining_points, 1);
+% 绘制边
 for i = 1:num_remaining_points
-    for j = 1:num_remaining_points
+    for j = i+1:num_remaining_points % 只遍历后面的点，避免重复绘制边
         if adj_matrix(i,j) > 0
             plot([remaining_points(i,1), remaining_points(j,1)], [remaining_points(i,2), remaining_points(j,2)], 'k-');
         end
     end
 end
 plot(remaining_points(:,1), remaining_points(:,2), 'ro');
-axis([0 19 0 19]); % 添加这行代码，设置坐标轴范围从0到20
+axis([0 19 0 19]); 
 xticks(0:1:19);
 yticks(0:1:19);
 hold off;
 xlabel('X轴');
 ylabel('Y轴');
-title('图的可视化');
+title('邻接矩阵');
