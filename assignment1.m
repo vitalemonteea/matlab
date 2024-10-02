@@ -19,22 +19,7 @@ start_point= [0, 0];
 end_point = [19, 19];
 remaining_points = [start_point; remaining_points; end_point];
 
-% % 构建图的邻接矩阵
-% num_remaining_points = size(remaining_points, 1);
-% adj_matrix = zeros(num_remaining_points);
-% for i = 1:num_remaining_points
-%     for j = 1:num_remaining_points
-%         % 计算两点之间的距离
-%         dist = norm(remaining_points(i,:) - remaining_points(j,:));
-%         if abs(remaining_points(i,1) - remaining_points(j,1)) <= 1 &&...
-%            abs(remaining_points(i,2) - remaining_points(j,2)) <= 1
-%             adj_matrix(i,j) = dist;
-%             adj_matrix(j,i) = dist; % 因为是无向图，所以邻接矩阵是对称的
-%         end
-%     end
-% end
-
-% 优化
+% 优化  
 num_remaining_points = size(remaining_points, 1);
 adj_matrix = zeros(num_remaining_points);
 for i = 1:num_remaining_points
