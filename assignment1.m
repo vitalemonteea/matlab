@@ -1,4 +1,5 @@
-% 此文件用于记录eie589 第一次作业
+% 此文件用于记录eie589 
+%使用dj算法
 
 % 生成节点坐标矩阵，这里是20x20的网格
 [x, y] = meshgrid(1:20, 1:20);
@@ -14,6 +15,16 @@ remaining_points_index = setdiff(other_points_index, removed_points_index);
 
 % 获取剩余的280个点的坐标
 remaining_points = all_points(remaining_points_index, :);
+point_1_1 = [1, 1];
+point_20_20 = [20, 20];
+remaining_points = [point_1_1; remaining_points; point_20_20];
+
+figure;
+plot(remaining_points(:,1), remaining_points(:,2), 'o');
+xlabel('X轴');
+ylabel('Y轴');
+title('剩余点的分布');
+grid on;
 
 % 构建图的邻接矩阵
 num_remaining_points = size(remaining_points, 1);
