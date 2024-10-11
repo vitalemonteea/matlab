@@ -50,6 +50,7 @@ end_point = num_remaining_points; % (19,19) 的索引
 figure;
 hold on;
 num_remaining_points = size(remaining_points, 1);
+
 % 绘制边
 for i = 1:num_remaining_points
     for j = i+1:num_remaining_points % 只遍历后面的点，避免重复绘制边
@@ -59,29 +60,28 @@ for i = 1:num_remaining_points
     end
 end
 
-plot(remaining_points(:,1), remaining_points(:,2), 'ro');
-axis([0 20 0 20]); 
-xticks(0:1:20);
-yticks(0:1:20);
+% 绘制节点
+for i = 1:num_remaining_points
+    if ismember(i, [1, num_remaining_points]) % 起点和终点
+        plot(remaining_points(i,1), remaining_points(i,2), 'go', 'MarkerSize', 8, 'MarkerFaceColor', 'g');
+    else
+        plot(remaining_points(i,1), remaining_points(i,2), 'go', 'MarkerSize', 6, 'MarkerFaceColor', 'g');
+    end
+end
+
+% 绘制被移除的点
+removed_points = all_points(removed_points_index, :);
+plot(removed_points(:,1), removed_points(:,2), 'ro', 'MarkerSize', 4);
+
+axis([0 21 0 21]); 
+xticks(0:1:21);
+yticks(0:1:21);
+grid on;
 hold off;
 xlabel('X轴');
 ylabel('Y轴');
-title('邻接矩阵');
+title('邻接矩阵可视化');
+legend('边', '保留的点', '移除的点', 'Location', 'best');
 
-% 绘制最短路径
-if ~isempty(path)
-    for k = 1:length(path)-1
-        if path(k)>0 && path(k)<size(remaining_points,1) && path(k+1)>0 && path(k+1)<size(remaining_points,1)
-            plot([remaining_points(path(k),1), remaining_points(path(k+1),1)], [remaining_points(path(k),2), remaining_points(path(k+1),2)], 'g-', 'LineWidth', 2);
-        else
-            disp(['Invalid index at iteration ', num2str(k)]);
-        end
-    end
-else
-    disp('无法绘制最短路径，可能是路径未找到或生成错误。');
-end
-hold off;
-xlabel('X 轴');
-ylabel('Y 轴');
-title('图的可视化及最短路径');
+
 
