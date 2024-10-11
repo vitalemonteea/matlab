@@ -49,6 +49,10 @@ end_point = num_remaining_points; % (20,20) 的索引
 % 重构最短路径
 shortest_path = end_point;
 while shortest_path(1) ~= start_point
+    if path(shortest_path(1)) == 0
+        disp('No path found to the end point');
+        break;
+    end
     shortest_path = [path(shortest_path(1)), shortest_path];
 end
 
@@ -56,6 +60,14 @@ end
 if shortest_path(1) ~= start_point
     shortest_path = [start_point, shortest_path];
 end
+if shortest_path(end) ~= end_point
+    shortest_path = [shortest_path, end_point];
+end
+
+% 打印路径长度和路径本身，用于调试
+disp(['Path length: ', num2str(length(shortest_path))]);
+disp('Path:');
+disp(shortest_path);
 
 % 绘制图的节点和边
 figure;
