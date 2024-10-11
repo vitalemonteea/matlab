@@ -42,9 +42,8 @@ end
 disp(size(G))
 %调用Dijkstra算法
 start_point = 1; % (1,1) 的索引
-end_point = num_remaining_points; % (19,19) 的索引
+end_point = num_remaining_points; % (20,20) 的索引
 [distances, path] = Dijkstra(G, start_point);
-
 
 % 绘制图的节点和边
 figure;
@@ -73,6 +72,12 @@ end
 removed_points = all_points(removed_points_index, :);
 plot(removed_points(:,1), removed_points(:,2), 'ro', 'MarkerSize', 4);
 
+% 绘制最短路径
+shortest_path = path{end_point};
+path_x = remaining_points(shortest_path, 1);
+path_y = remaining_points(shortest_path, 2);
+plot(path_x, path_y, 'b-', 'LineWidth', 2);
+
 axis([0 21 0 21]); 
 xticks(0:1:21);
 yticks(0:1:21);
@@ -80,8 +85,8 @@ grid on;
 hold off;
 xlabel('X轴');
 ylabel('Y轴');
-title('邻接矩阵可视化');
-legend('边', '保留的点', '移除的点', 'Location', 'best');
+title('邻接矩阵可视化与最短路径');
+legend('边', '保留的点', '移除的点', '最短路径', 'Location', 'best');
 
 
 
