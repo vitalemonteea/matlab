@@ -1,22 +1,18 @@
-% 此文件用于记录eie589 assignment1
-% 使用dj算法
-
+% This file is used to record eie589 assignment1
+% Using Dijkstra's algorithm
 clc;
 clear;
 
 % Generate a 20x20 matrix
 [x, y] = meshgrid(1:20, 1:20);
 all_points = [x(:), y(:)]; 
-
 keep_points = [1, 400]; 
 other_points_index = setdiff(1:400, keep_points); 
 
 % Randomly select 120 points to remove
 removed_points_index = other_points_index(randperm(length(other_points_index), 120));
 remaining_points_index = setdiff(1:400, [removed_points_index, keep_points]); 
-
 remaining_points = all_points([keep_points, remaining_points_index], :);
-
 start_point = 1; 
 end_point = find(remaining_points(:,1) == 20 & remaining_points(:,2) == 20);
 
@@ -39,7 +35,6 @@ end
 %plot
 figure;
 hold on;
-
 plot(remaining_points(:,1), remaining_points(:,2), 'go', 'MarkerSize', 6, 'MarkerFaceColor', 'g');
 removed_points = all_points(removed_points_index, :);
 plot(removed_points(:,1), removed_points(:,2), 'ro', 'MarkerSize', 4, 'MarkerFaceColor', 'r');
@@ -52,7 +47,6 @@ if ~isempty(shortest_path)
 else
     disp('No path found to the end point');
 end
-
 plot(remaining_points(start_point,1), remaining_points(start_point,2), 'bs', 'MarkerSize', 10, 'MarkerFaceColor', 'b');
 plot(remaining_points(end_point,1), remaining_points(end_point,2), 'bs', 'MarkerSize', 10, 'MarkerFaceColor', 'b');
 
