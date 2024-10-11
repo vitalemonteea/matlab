@@ -3,16 +3,12 @@
 % 返回最短距离数组distances和路径数组path
 
 function [distances, path] = Dijkstra(G, start_point, end_point)
-    % Dijkstra算法实现
-    % 输入邻接矩阵G，开始的点start_point，结束的点end_point
-    % 返回最短距离数组distances和路径数组path
-
     num_nodes = size(G, 1);
     distances = inf(1, num_nodes);  % 初始化距离为无穷大
     path = zeros(1, num_nodes);     % 初始化路径
     visited = false(1, num_nodes);  % 初始化访问标记
 
-    distances(start_point) = 0;  % 起始点到自身的距离为0
+    distances(start_point) = 0;  
 
     for i = 1:num_nodes
         % 寻找未访问的最小距离点
@@ -20,13 +16,8 @@ function [distances, path] = Dijkstra(G, start_point, end_point)
         unvisited_distances(visited) = Inf;
         [~, current_point] = min(unvisited_distances);
 
-        % 如果当前点是终点，则退出循环
-        if current_point == end_point
-            break;
-        end
-
-        % 如果所有可达节点都已访问，则退出循环
-        if isinf(distances(current_point))
+       % 如果当前点是终点或者没有可达的未访问节点，则退出循环
+        if current_point == end_point || isinf(min_distance)
             break;
         end
 

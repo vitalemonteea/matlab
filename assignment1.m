@@ -1,15 +1,15 @@
-    % 此文件用于记录eie589 assignment1
+% 此文件用于记录eie589 assignment1
 % 使用dj算法
 
 clc;
 clear;
 
-% 生成节点坐标矩阵，这里是20x20的网格
+% 生成20*20的矩阵
 [x, y] = meshgrid(1:20, 1:20);
-all_points = [x(:), y(:)]; % 将坐标矩阵转换为Nx2的矩阵，N = 400
+all_points = [x(:), y(:)]; 
 
-% 保留(1,1)和(20,20)两个点，获取其他398个点的索引
-keep_points = [1, 400]; % (1,1)对应索引1，(20,20)对应索引400
+% 保留(1,1)和(20,20)两个点
+keep_points = [1, 400]; 
 other_points_index = setdiff(1:400, keep_points); 
 
 % 随机选择120个要移除的点的索引
@@ -20,7 +20,7 @@ remaining_points_index = setdiff(1:400, [removed_points_index, keep_points]);
 remaining_points = all_points([keep_points, remaining_points_index], :);
 
 % 确定起点和终点在remaining_points中的索引
-start_point = 1; % 起点(1,1)总是第一个
+start_point = 1; 
 end_point = find(remaining_points(:,1) == 20 & remaining_points(:,2) == 20);
 
 % 构建邻接矩阵
@@ -31,7 +31,7 @@ for i = 1:num_remaining_points
         dist = norm(remaining_points(i,:) - remaining_points(j,:));
         if dist <= sqrt(2)
             G(i,j) = dist;
-            G(j,i) = dist; % 因为是无向图，所以邻接矩阵是对称的
+            G(j,i) = dist;
         end
     end
 end
