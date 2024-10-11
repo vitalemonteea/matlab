@@ -19,8 +19,9 @@ remaining_points_index = setdiff(1:400, [removed_points_index, keep_points]);
 % 获取剩余的点的坐标
 remaining_points = all_points([keep_points, remaining_points_index], :);
 
-% 移除这一行，因为它重复添加了起点和终点
-% remaining_points = [start_point; remaining_points; end_point];
+% 确定起点和终点在remaining_points中的索引
+start_point = 1; % 起点(1,1)总是第一个
+end_point = find(remaining_points(:,1) == 20 & remaining_points(:,2) == 20);
 
 % 优化只查询自己最近的9个点位置
 num_remaining_points = size(remaining_points, 1);
@@ -38,12 +39,11 @@ for i = 1:num_remaining_points
 end
 
 
-% 在绘图之前，打印剩余点的数量
+% 在绘图之前，打印剩余点的数量和终点索引
 disp(['Number of remaining points: ', num2str(num_remaining_points)]);
+disp(['End point index: ', num2str(end_point)]);
 
 %调用Dijkstra算法
-start_point = 1; % (1,1) 的索引
-end_point = num_remaining_points; % (20,20) 的索引
 [distances, shortest_path] = Dijkstra(G, start_point, end_point);
 
 % 检查是否找到路径
@@ -106,6 +106,10 @@ xlabel('X轴');
 ylabel('Y轴');
 title('邻接矩阵可视化与最短路径');
 legend('边', '保留的点', '移除的点', '最短路径', 'Location', 'best');
+
+% 在绘图结束后，再次确认起点和终点的坐标
+disp(['Start point coordinates: ', num2str(remaining_points(start_point,:))]);
+disp(['End point coordinates: ', num2str(remaining_points(end_point,:))]);
 
 
 
