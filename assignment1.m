@@ -9,15 +9,15 @@ clear;
 all_points = [x(:), y(:)]; % 将坐标矩阵转换为Nx2的矩阵，N = 400
 
 % 保留(1,1)和(20,20)两个点，获取其他398个点的索引
-keep_points = [1,400]; % (1,1)对应索引1，(20,20)对应索引400
+keep_points = [1, 400]; % (1,1)对应索引1，(20,20)对应索引400
 other_points_index = setdiff(1:400, keep_points); 
 
 % 随机选择120个要移除的点的索引
-removed_points_index = randperm(length(other_points_index), 120);
-remaining_points_index = setdiff(other_points_index, removed_points_index); 
+removed_points_index = other_points_index(randperm(length(other_points_index), 120));
+remaining_points_index = setdiff(1:400, [removed_points_index, keep_points]); 
 
-% 获取剩余的280个点的坐标
-remaining_points = all_points(remaining_points_index, :);
+% 获取剩余的点的坐标
+remaining_points = all_points([keep_points, remaining_points_index], :);
 start_point= [1, 1];
 end_point = [20, 20];
 remaining_points = [start_point; remaining_points; end_point];
