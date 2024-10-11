@@ -41,7 +41,6 @@ end
 % 在绘图之前，打印剩余点的数量
 disp(['Number of remaining points: ', num2str(num_remaining_points)]);
 
-disp(size(G))
 %调用Dijkstra算法
 start_point = 1; % (1,1) 的索引
 end_point = num_remaining_points; % (20,20) 的索引
@@ -51,6 +50,11 @@ end_point = num_remaining_points; % (20,20) 的索引
 shortest_path = end_point;
 while shortest_path(1) ~= start_point
     shortest_path = [path(shortest_path(1)), shortest_path];
+end
+
+% 确保起点被包括在路径中
+if shortest_path(1) ~= start_point
+    shortest_path = [start_point, shortest_path];
 end
 
 % 绘制图的节点和边
@@ -84,6 +88,10 @@ plot(removed_points(:,1), removed_points(:,2), 'ro', 'MarkerSize', 4);
 path_x = remaining_points(shortest_path, 1);
 path_y = remaining_points(shortest_path, 2);
 plot(path_x, path_y, 'b-', 'LineWidth', 2);
+
+% 绘制起点和终点，使它们更加突出
+plot(remaining_points(start_point,1), remaining_points(start_point,2), 'bs', 'MarkerSize', 10, 'MarkerFaceColor', 'b');
+plot(remaining_points(end_point,1), remaining_points(end_point,2), 'bs', 'MarkerSize', 10, 'MarkerFaceColor', 'b');
 
 axis([0 21 0 21]); 
 xticks(0:1:21);
