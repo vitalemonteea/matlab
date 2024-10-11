@@ -44,30 +44,22 @@ disp(['Number of remaining points: ', num2str(num_remaining_points)]);
 %调用Dijkstra算法
 start_point = 1; % (1,1) 的索引
 end_point = num_remaining_points; % (20,20) 的索引
-[distances, path] = Dijkstra(G, start_point);
+[distances, shortest_path] = Dijkstra(G, start_point, end_point);
 
-% 重构最短路径
-shortest_path = end_point;
-while shortest_path(1) ~= start_point
-    if path(shortest_path(1)) == 0
-        disp('No path found to the end point');
-        break;
-    end
-    shortest_path = [path(shortest_path(1)), shortest_path];
-end
+% 检查是否找到路径
+if isempty(shortest_path)
+    disp('No path found to the end point');
+else
+    % 打印路径长度和路径本身，用于调试
+    disp(['Path length: ', num2str(length(shortest_path))]);
+    disp('Path:');
+    disp(shortest_path);
 
-% 确保起点被包括在路径中
-if shortest_path(1) ~= start_point
-    shortest_path = [start_point, shortest_path];
+    % 绘制最短路径
+    path_x = remaining_points(shortest_path, 1);
+    path_y = remaining_points(shortest_path, 2);
+    plot(path_x, path_y, 'b-', 'LineWidth', 2);
 end
-if shortest_path(end) ~= end_point
-    shortest_path = [shortest_path, end_point];
-end
-
-% 打印路径长度和路径本身，用于调试
-disp(['Path length: ', num2str(length(shortest_path))]);
-disp('Path:');
-disp(shortest_path);
 
 % 绘制图的节点和边
 figure;
