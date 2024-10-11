@@ -43,11 +43,6 @@ end
 figure;
 hold on;
 
-% 绘制边
-[row, col] = find(G > 0);
-plot([remaining_points(row,1)'; remaining_points(col,1)'], ...
-     [remaining_points(row,2)'; remaining_points(col,2)'], 'k-');
-
 % 绘制节点
 plot(remaining_points(:,1), remaining_points(:,2), 'go', 'MarkerSize', 6, 'MarkerFaceColor', 'g');
 
@@ -72,10 +67,9 @@ axis([0 21 0 21]);
 xticks(0:1:21);
 yticks(0:1:21);
 grid on;
-xlabel('X轴');
-ylabel('Y轴');
-title('邻接矩阵可视化与最短路径');
-legend('边', '保留的点', '移除的点', '最短路径', '起点/终点', 'Location', 'best');
+xlabel('X-axis');
+ylabel('Y-axis');
+title('Adjacency matrix visualization with shortest path');
 hold off;
 
 
