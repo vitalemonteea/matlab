@@ -1,4 +1,4 @@
-% 此文件用于记录eie589 assignment1
+    % 此文件用于记录eie589 assignment1
 % 使用dj算法
 
 clc;
@@ -45,6 +45,12 @@ start_point = 1; % (1,1) 的索引
 end_point = num_remaining_points; % (20,20) 的索引
 [distances, path] = Dijkstra(G, start_point);
 
+% 重构最短路径
+shortest_path = end_point;
+while shortest_path(1) ~= start_point
+    shortest_path = [path(shortest_path(1)), shortest_path];
+end
+
 % 绘制图的节点和边
 figure;
 hold on;
@@ -73,7 +79,6 @@ removed_points = all_points(removed_points_index, :);
 plot(removed_points(:,1), removed_points(:,2), 'ro', 'MarkerSize', 4);
 
 % 绘制最短路径
-shortest_path = path{end_point};
 path_x = remaining_points(shortest_path, 1);
 path_y = remaining_points(shortest_path, 2);
 plot(path_x, path_y, 'b-', 'LineWidth', 2);
