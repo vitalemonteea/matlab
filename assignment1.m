@@ -39,9 +39,6 @@ for i = 1:num_remaining_points
 end
 
 
-% 在绘图之前，打印剩余点的数量和终点索引
-disp(['Number of remaining points: ', num2str(num_remaining_points)]);
-disp(['End point index: ', num2str(end_point)]);
 
 %调用Dijkstra算法
 [distances, shortest_path] = Dijkstra(G, start_point, end_point);
@@ -50,11 +47,6 @@ disp(['End point index: ', num2str(end_point)]);
 if isempty(shortest_path)
     disp('No path found to the end point');
 else
-    % 打印路径长度和路径本身，用于调试
-    disp(['Path length: ', num2str(length(shortest_path))]);
-    disp('Path:');
-    disp(shortest_path);
-
     % 绘制最短路径
     path_x = remaining_points(shortest_path, 1);
     path_y = remaining_points(shortest_path, 2);
@@ -107,9 +99,7 @@ ylabel('Y轴');
 title('邻接矩阵可视化与最短路径');
 legend('边', '保留的点', '移除的点', '最短路径', 'Location', 'best');
 
-% 在绘图结束后，再次确认起点和终点的坐标
-disp(['Start point coordinates: ', num2str(remaining_points(start_point,:))]);
-disp(['End point coordinates: ', num2str(remaining_points(end_point,:))]);
+
 
 
 
