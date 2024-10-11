@@ -43,12 +43,12 @@ end
 figure;
 hold on;
 
-% 绘制节点
+% 绘制保留的点（绿色填充）
 plot(remaining_points(:,1), remaining_points(:,2), 'go', 'MarkerSize', 6, 'MarkerFaceColor', 'g');
 
 % 绘制被移除的点
 removed_points = all_points(removed_points_index, :);
-plot(removed_points(:,1), removed_points(:,2), 'ro', 'MarkerSize', 4);
+plot(removed_points(:,1), removed_points(:,2), 'ro', 'MarkerSize', 4, 'MarkerFaceColor', 'r');
 
 % 绘制最短路径
 if ~isempty(shortest_path)
