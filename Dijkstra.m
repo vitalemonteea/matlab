@@ -17,7 +17,7 @@ function [distances, path] = Dijkstra(G, start_point, end_point)
         [~, current_point] = min(unvisited_distances);
 
        % 如果当前点是终点或者没有可达的未访问节点，则退出循环
-        if current_point == end_point || isinf(min_distance)
+        if current_point == end_point || isinf(min(distances))
             break;
         end
 
