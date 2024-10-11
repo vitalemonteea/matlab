@@ -26,22 +26,17 @@ remaining_points = [start_point; remaining_points; end_point];
 num_remaining_points = size(remaining_points, 1);
 G = zeros(num_remaining_points);
 for i = 1:num_remaining_points
-    x_i = remaining_points(i,1);
-    y_i = remaining_points(i,2);
-    for dx = -1:1
-        for dy = -1:1
-            x_j = x_i + dx;
-            y_j = y_i + dy;
-            % 找到符合坐标范围的邻居节点索引
-            index_j = find((remaining_points(:,1)==x_j)&(remaining_points(:,2)==y_j), 1);
-            if ~isempty(index_j)
-                dist = norm(remaining_points(i,:) - remaining_points(index_j,:));
-                G(i,index_j) = dist;
-                G(index_j,i) = dist;
-            end
+    for j = 1:num_remaining_points
+        % 计算两点之间的距离
+        dist = norm(remaining_points(i,:) - remaining_points(j,:));
+        if abs(remaining_points(i,1) - remaining_points(j,1)) <= 1 &&...
+           abs(remaining_points(i,2) - remaining_points(j,2)) <= 1
+            G(i,j) = dist;
+            G(j,i) = dist; % 因为是无向图，所以邻接矩阵是对称的
         end
     end
 end
+
 
 
 disp(size(G))
